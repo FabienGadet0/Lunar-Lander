@@ -3,31 +3,29 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "define.h"
 #include <cmath>
+#include <string>
 
-class SpaceShip
+#include "entity.h"
+#include "define.h"
+
+
+class SpaceShip : public Entity
 {
 public:
 
     SpaceShip();
     ~SpaceShip();
     void event();
+    void set_angle_and_pos();
+
+
     void update();
     void debug();
 
-    sf::Sprite getSprite() const {return _sprite;}
-    sf::Vector2f getPos() const {return _pos;}
-
 protected:
-    sf::Sprite _sprite;
-    sf::Texture _tex;
-    sf::Vector2f _pos;
-
-    float _speed;
-    float _direction;
-
     float _fuel;
+
 };
 
 

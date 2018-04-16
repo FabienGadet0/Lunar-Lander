@@ -21,6 +21,8 @@ public:
     void regulate_fuel_and_speed();
     void update();
     void debug();
+    // virtual void draw(sf::RenderWindow &);
+    virtual void collider(std::vector<sf::VertexArray>);
 
 protected:
     float _fuel;

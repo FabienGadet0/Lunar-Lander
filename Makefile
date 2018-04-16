@@ -5,7 +5,9 @@ SCR_FILE:= srcs
 SRC:=	$(SCR_FILE)/main.cpp \
 		$(SCR_FILE)/game.cpp \
 		$(SCR_FILE)/spaceship.cpp \
-		$(SCR_FILE)/entity.cpp
+		$(SCR_FILE)/entity.cpp \
+		$(SCR_FILE)/ground.cpp \
+		$(SCR_FILE)/collider.cpp \
 				
 OBJ:=	$(SRC:.cpp=.o)
 

@@ -4,9 +4,9 @@ SpaceShip::SpaceShip() :  Entity::Entity(), _fuel(50)
 {
     _tex.loadFromFile("./assets/spaceship.png");
     _sprite.setTexture(_tex);
-    _sprite.setScale(sf::Vector2f(0.1f, 0.1f));
     _sprite.setPosition(WINX / 2, WINY / 3); 
     _sprite.setRotation(-90.f);
+    Collider::init(_sprite.getGlobalBounds(), SPACESHIP);
 }
 
 SpaceShip::~SpaceShip() {}
@@ -27,8 +27,8 @@ void SpaceShip::set_angle_and_pos()
 {
     _sprite.move(std::cos(3.14159265 * _sprite.getRotation() / 180.f) * _speed,
     (std::sin(3.14159265 * _sprite.getRotation() / 180.f) * _speed ) + GRAVITY);
-
 }
+
 void SpaceShip::regulate_fuel_and_speed()
 {
     if (_speed > 0 && _fuel > 0)
@@ -37,9 +37,16 @@ void SpaceShip::regulate_fuel_and_speed()
         _speed = 0;
 }
 
+void SpaceShip::collider(std::vector<sf::VertexArray>)
+{
+    
+}
+
+
 void SpaceShip::update()
 {
     event();
+    updatePos();
     regulate_fuel_and_speed();
     set_angle_and_pos();
 }

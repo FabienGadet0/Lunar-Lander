@@ -4,10 +4,11 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include "define.h"
+#include "collider.h"
 #include <cmath>
 #include <string>
 
-class Entity
+class Entity : public Collider
 {
 public:
 
@@ -16,6 +17,9 @@ public:
 
     virtual void update();
     virtual void debug();
+    void collider(){}
+    virtual void draw(sf::RenderWindow &);
+    virtual void updatePos();
 
     sf::Sprite getSprite() const {return _sprite;}
     sf::Vector2f getPos() const {return _sprite.getPosition();}

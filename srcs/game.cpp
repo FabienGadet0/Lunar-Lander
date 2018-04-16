@@ -8,18 +8,25 @@ Game::Game(sf::RenderWindow &win) : _win(win)
     createGround();
 }
 
-Game::~Game() {}
+Game::~Game() 
+{
+    _scene.clear();
+}
 
 void Game::createGround()
 {
-    sf::VertexArray line(sf::Lines, 2);
-    line[1] = sf::Vertex(sf::Vector2f(- WINX, WINY));
+    Ground g;
+    g.line.setPrimitiveType(sf::Lines);
+    g.line.resize(2);
+    g.line[1] = sf::Vertex(sf::Vector2f(- WINX, WINY));
+
     for(int i = - WINX; i != WINX; ++i)
     {
-        line[0] = line[1];
-        line[1] = sf::Vertex(sf::Vector2f(100 * i,
+        g.line[0] = g.line[1];
+        g.line[1] = sf::Vertex(sf::Vector2f(100 * i,
          WINY - (rand() % 500)));
-        _ground.push_back(line);
+        g._c.init(g.line.getBounds(), 1);
+        _ground.push_back(g);
     }
 }
 
@@ -33,13 +40,34 @@ void Game::event()
     }
 }
 
+
+void Game::debug_collision()
+{
+    sf::RectangleShape tmp;
+    tmp.setOutlineColor(sf::Color::White);
+    tmp.setOutlineThickness(1);
+    tmp.setFillColor(sf::Color::Black);
+    tmp.setSize(sf::Vector2f
+        ((_scene[0]->getRekt().width), _scene[0]->getRekt().height));
+    tmp.setPosition(sf::Vector2f
+        ((_scene[0]->getRekt().left), _scene[0]->getRekt().top));
+    _win.draw(tmp);
+}
+
 void Game::draw_and_display()
 {
     for (auto it = _scene.begin() ; it != _scene.end(); ++it)
-        _win.draw ((*it)->getSprite());
-    for (auto it2 = _ground.begin() ; it2 != _ground.end(); ++it2)
-        _win.draw(*it2);
-   
+    {
+        // debug_collision();
+        (*it)->draw(_win);
+    }
+
+    for (auto it = _scene_debug.begin() ; it != _scene_debug.end(); ++it)
+        _win.draw(*it);
+
+    for (auto it = _ground.begin() ; it != _ground.end(); ++it)
+        _win.draw((*it).line);
+
     _win.setView(_mainView);
     _win.display();
 }
@@ -47,16 +75,16 @@ void Game::draw_and_display()
 void Game::moveView()
 {
     _mainView.setCenter(_scene[0]->getPos().x, WINY / 2);
-
-    // if (_scene[0].getPos().x > _mainView.getCenter().x * 1.5)
-    //     _mainView.move(_scene[0].getSpeed() * 2, 0);
 }
 
 void Game::update()
 {
     for (auto it = _scene.begin() ; it != _scene.end(); ++it)
         (*it)->update();
-    debug();
+    for (auto it2 = _ground.begin() ; it2 != _ground.end(); ++it2)
+        if (_scene[0]->checkC((*it2)._c) == 1) // && different de platform
+            std::cout << "you loose" << std::endl;
+    // debug();
     moveView();
 }
 

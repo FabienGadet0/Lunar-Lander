@@ -4,7 +4,13 @@
 #include <SFML/Graphics.hpp>
 #include "spaceship.h"
 #include "define.h"
+#include "ground.h"
 #include <string>
+
+typedef struct Ground{
+    sf::VertexArray line;
+    Collider _c;
+}              Ground;
 
 class Game
 {
@@ -19,6 +25,7 @@ public:
     void run();
     void debug();
     void createGround();
+    void debug_collision();
 
 protected:
     sf::RenderWindow &_win;
@@ -26,8 +33,8 @@ protected:
     SpaceShip _ship;
     sf::Texture _tex;
     sf::View _mainView;
-    std::vector<sf::VertexArray> _ground;
-
+    std::vector<Ground> _ground;
+    std::vector<sf::RectangleShape> _scene_debug;
 };
 
 

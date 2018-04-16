@@ -23,12 +23,14 @@ public:
 
     sf::Sprite getSprite() const {return _sprite;}
     sf::Vector2f getPos() const {return _sprite.getPosition();}
-    float getSpeed(){return _speed;}
+    float getFuel() const {return _fuel;}
+    float getSpeed() const {return _speed;}
 
 protected:
     sf::Sprite _sprite;
     sf::Texture _tex;
     float _speed;
+    float _fuel;
     float _direction;   
 };
 

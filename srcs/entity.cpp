@@ -1,6 +1,6 @@
 #include "entity.h"
 
-Entity::Entity()
+Entity::Entity() :  _fuel(100) , _speed(0)
 {
 }
 
@@ -8,7 +8,6 @@ void Entity::update() {}
 
 void Entity::debug() 
 {
-
 }
 
 void Entity::updatePos()

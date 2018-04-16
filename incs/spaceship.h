@@ -24,9 +24,6 @@ public:
     // virtual void draw(sf::RenderWindow &);
     virtual void collider(std::vector<sf::VertexArray>);
 
-protected:
-    float _fuel;
-
 };
 
 

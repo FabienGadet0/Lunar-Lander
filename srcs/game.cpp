@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game(sf::RenderWindow &win) : _win(win)
+Game::Game(sf::RenderWindow &win) : _win(win), _itsOver(false)
 {
     _mainView.setSize(sf::Vector2f(WINX, WINY));
     _mainView.setCenter(sf::Vector2f(WINX / 2, WINY / 2));
@@ -23,10 +23,21 @@ void Game::createGround()
     for(int i = - WINX; i != WINX; ++i)
     {
         g.line[0] = g.line[1];
-        g.line[1] = sf::Vertex(sf::Vector2f(100 * i,
+        g.line[1] = sf::Vertex(sf::Vector2f(50 * i,
          WINY - (rand() % 500)));
         g._c.init(g.line.getBounds(), 1);
         _ground.push_back(g);
+
+        if (DEBUG)
+        {
+            sf::RectangleShape tmp;
+            tmp.setOutlineThickness(1);
+            tmp.setOutlineColor(sf::Color::Red);
+            tmp.setFillColor(sf::Color::Black);
+            tmp.setSize(g._c.getSize());
+            tmp.setPosition(g._c.getRekt().left, g._c.getRekt().top);
+            _scene_debug.push_back(tmp);
+        }
     }
 }
 
@@ -39,7 +50,6 @@ void Game::event()
         _win.close();
     }
 }
-
 
 void Game::debug_collision()
 {
@@ -58,44 +68,59 @@ void Game::draw_and_display()
 {
     for (auto it = _scene.begin() ; it != _scene.end(); ++it)
     {
-        // debug_collision();
+        if (DEBUG)
+            debug_collision();
         (*it)->draw(_win);
     }
 
-    for (auto it = _scene_debug.begin() ; it != _scene_debug.end(); ++it)
-        _win.draw(*it);
+    if (DEBUG)
+        for (auto it = _scene_debug.begin() ; it != _scene_debug.end(); ++it)
+            _win.draw(*it);
 
     for (auto it = _ground.begin() ; it != _ground.end(); ++it)
         _win.draw((*it).line);
 
+
+    if (_itsOver)
+    {
+        _ui.youLoose(_win, _mainView);
+    }
+
     _win.setView(_mainView);
+    _ui.draw(_win);
     _win.display();
 }
 
-void Game::moveView()
+void Game::moveView_and_ui()
 {
     _mainView.setCenter(_scene[0]->getPos().x, WINY / 2);
+    _ui.setPosition(_mainView.getCenter().x +
+    (_mainView.getSize().x / 2) - 200, 20);
 }
 
 void Game::update()
 {
+    if (!_itsOver)
+    {
     for (auto it = _scene.begin() ; it != _scene.end(); ++it)
         (*it)->update();
     for (auto it2 = _ground.begin() ; it2 != _ground.end(); ++it2)
         if (_scene[0]->checkC((*it2)._c) == 1) // && different de platform
-            std::cout << "you loose" << std::endl;
+            _itsOver = true;
     // debug();
-    moveView();
+    moveView_and_ui();
+    _ui.getInformation(_scene[0]);    
+    }
 }
 
 void Game::run()
 {
     while (_win.isOpen())
         {
-            this->event();
-            this->update();
-            _win.clear();
-            this->draw_and_display();
+           this->event();                    
+           this->update();
+           _win.clear();
+           this->draw_and_display();
         }
 }
 

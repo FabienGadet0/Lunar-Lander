@@ -8,6 +8,7 @@ SRC:=	$(SCR_FILE)/main.cpp \
 		$(SCR_FILE)/entity.cpp \
 		$(SCR_FILE)/ground.cpp \
 		$(SCR_FILE)/collider.cpp \
+		$(SCR_FILE)/ui.cpp
 				
 OBJ:=	$(SRC:.cpp=.o)
 

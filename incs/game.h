@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include "spaceship.h"
 #include "define.h"
+#include "ui.h"
 #include "ground.h"
 #include <string>
 
@@ -21,7 +22,7 @@ public:
     void event();
     void update();
     void draw_and_display();
-    void moveView();
+    void moveView_and_ui();
     void run();
     void debug();
     void createGround();
@@ -35,6 +36,8 @@ protected:
     sf::View _mainView;
     std::vector<Ground> _ground;
     std::vector<sf::RectangleShape> _scene_debug;
+    Ui _ui;
+    bool _itsOver;
 };
 
 

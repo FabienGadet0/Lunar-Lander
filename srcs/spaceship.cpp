@@ -1,6 +1,6 @@
 #include "spaceship.h"
 
-SpaceShip::SpaceShip() :  Entity::Entity(), _fuel(50)
+SpaceShip::SpaceShip() :  Entity::Entity()
 {
     _tex.loadFromFile("./assets/spaceship.png");
     _sprite.setTexture(_tex);
@@ -13,14 +13,14 @@ SpaceShip::~SpaceShip() {}
 
 void SpaceShip::event()
 {   
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && _fuel > 0)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up) && _fuel > 0 && _speed < 5)
         _speed += SHIPSPEED;
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Left))
         _sprite.rotate(- (TURNRATE * 10));
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
         _sprite.rotate(TURNRATE * 10);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && _speed > 0)
-        _speed -= SHIPSPEED;
+        _speed -= SHIPSPEED / 5;
 }
 
 void SpaceShip::set_angle_and_pos()
@@ -46,6 +46,7 @@ void SpaceShip::collider(std::vector<sf::VertexArray>)
 void SpaceShip::update()
 {
     event();
+    // debug();
     updatePos();
     regulate_fuel_and_speed();
     set_angle_and_pos();

@@ -30,5 +30,5 @@
         "utility": "cpp",
         "string": "cpp"
     },
-    "C_Cpp.intelliSenseEngineFallback": "Disabled"
+    "C_Cpp.intelliSenseEngineFallback": "Enabled"
 }

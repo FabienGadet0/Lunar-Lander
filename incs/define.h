@@ -1,7 +1,7 @@
 #ifndef DEFINE_H_
 #define DEFINE_H_
 
-#define GRAVITY 0.5
+#define GRAVITY 1
 
 #define WINX 1500
 #define WINY 1000

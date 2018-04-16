@@ -27,6 +27,7 @@ protected:
     sf::Texture _tex;
     sf::View _mainView;
     std::vector<sf::VertexArray> _ground;
+
 };
 
 

@@ -18,8 +18,7 @@ public:
     ~SpaceShip();
     void event();
     void set_angle_and_pos();
-
-
+    void regulate_fuel_and_speed();
     void update();
     void debug();
 

@@ -6,6 +6,7 @@
 #include "define.h"
 #include "ui.h"
 #include "ground.h"
+#include "platform.h"
 #include <string>
 
 typedef struct Ground{
@@ -25,7 +26,7 @@ public:
     void moveView_and_ui();
     void run();
     void debug();
-    void createGround();
+    void createGround_and_platforms();
     void debug_collision();
 
 protected:

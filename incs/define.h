@@ -9,9 +9,12 @@
 #define SHIPSPEED 0.05
 #define TURNRATE 0.09
 #define GRAVITY 1.5
+#define PLATFORMSIZE sf::Vector2f(50, 50)
+#define NBOFPLATFORMS 10
 
 #define UISIZE 15
 #define UICOLOR sf::Color::White
+
 
 #define DEBUG false
 

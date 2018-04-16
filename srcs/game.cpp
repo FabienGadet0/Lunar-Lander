@@ -5,7 +5,7 @@ Game::Game(sf::RenderWindow &win) : _win(win), _itsOver(false)
     _mainView.setSize(sf::Vector2f(WINX, WINY));
     _mainView.setCenter(sf::Vector2f(WINX / 2, WINY / 2));
     _scene.push_back(new SpaceShip());
-    createGround();
+    createGround_and_platforms();
 }
 
 Game::~Game() 
@@ -13,8 +13,9 @@ Game::~Game()
     _scene.clear();
 }
 
-void Game::createGround()
+void Game::createGround_and_platforms()
 {
+    int nb_platform = 0;
     Ground g;
     g.line.setPrimitiveType(sf::Lines);
     g.line.resize(2);
@@ -22,11 +23,16 @@ void Game::createGround()
 
     for(int i = - WINX; i != WINX; ++i)
     {
+
         g.line[0] = g.line[1];
         g.line[1] = sf::Vertex(sf::Vector2f(50 * i,
          WINY - (rand() % 500)));
         g._c.init(g.line.getBounds(), 1);
+
         _ground.push_back(g);
+
+        // if (nb_platform++ < NBOFPLATFORMS)
+        //     _scene.push_back(new P SET PLATFORM POSITION
 
         if (DEBUG)
         {

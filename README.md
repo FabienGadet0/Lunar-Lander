@@ -25,6 +25,6 @@ Acceleration is faster than braking.
 When there is no fuel anymore the spacecraft can't accelerate of brake , only itertia and
 gravity are applied to it , so you must find a platform before that case .
 
-you can find a really simple UML of the project named "lunarLanderUML.pdf"
+# You can find a really simple UML of the project named "lunarLanderUML.pdf"
 
 ![Alt text](./assets/game.png?raw=true "Lunar Lander")

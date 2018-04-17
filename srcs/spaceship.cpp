@@ -19,7 +19,7 @@ void SpaceShip::event()
         _sprite.rotate(- (TURNRATE * 10));
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Right))
         _sprite.rotate(TURNRATE * 10);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && _speed > 0)
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down) && _speed > 0 && _fuel > 0)
         _speed -= SHIPSPEED / 5;
 }
 
@@ -33,8 +33,10 @@ void SpaceShip::regulate_fuel_and_speed()
 {
     if (_speed > 0 && _fuel > 0)
         _fuel -= (_speed / 100 );
-    if (_speed < 0)
+    if (_speed <= 0)
         _speed = 0;
+    if (_fuel <= 0)
+        _speed -= 0.0001;
 }
 
 void SpaceShip::collider(std::vector<sf::VertexArray>)

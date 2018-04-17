@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game(sf::RenderWindow &win) : _win(win), _itsOver(false), _winn(false)
+Game::Game(sf::RenderWindow &win) : _win(win), _itsOver(false), _winn(false), _pause(false)
 {
     _mainView.setSize(sf::Vector2f(WINX, WINY));
     _mainView.setCenter(sf::Vector2f(WINX / 2, WINY / 2));
@@ -30,7 +30,7 @@ void Game::createGround_and_platforms()
         g._c.init(g.line.getBounds(), 1);
         _ground.push_back(g);
 
-        if (g._c.getRekt().top < 700 && nb_platform++ % 64 == 0)
+        if (g._c.getRekt().top < 700 && (rand() % 1000) > 990)
             _scene.push_back(
                 new Platform(sf::Vector2f(g._c.getRekt().left ,g._c.getRekt().top - 10)));
 
@@ -55,6 +55,10 @@ void Game::event()
     {
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
         _win.close();
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
+        _pause = true;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+        _pause = false;
     }
 }
 
@@ -73,6 +77,7 @@ void Game::debug_collision()
 
 void Game::draw_and_display()
 {
+    // _bg.draw(_win);
     for (auto it = _scene.begin() ; it != _scene.end(); ++it)
     {
         if (DEBUG)
@@ -87,10 +92,13 @@ void Game::draw_and_display()
     for (auto it = _ground.begin() ; it != _ground.end(); ++it)
         _win.draw((*it).line);
 
-    if (_winn)
-        _ui.youWin(_win, _mainView);
+    if (_pause && !_winn && !_itsOver)
+        _ui.drawInformation(_win, _mainView, 3);
+    else if (_winn)
+        _ui.drawInformation(_win, _mainView, 1);
     else if (_itsOver)
-        _ui.youLoose(_win, _mainView);
+        _ui.drawInformation(_win, _mainView, 2);
+
     _win.setView(_mainView);
     _ui.draw(_win);
     _win.display();
@@ -105,17 +113,23 @@ void Game::moveView_and_ui()
 
 void Game::update()
 {
-    if (!_itsOver || !_winn)
+    if (!_pause)
     {
     for (auto it = _scene.begin() ; it != _scene.end(); ++it)
     {
         (*it)->update();
         if (_scene[0]->checkC(**it) == 1 && (*it)->getId() == PLATFORM)
+        {
             _winn = true;
+            _pause = true;
+        }
     }                
     for (auto it2 = _ground.begin() ; it2 != _ground.end(); ++it2)
         if (_scene[0]->checkC((*it2)._c) == 1) // && different de platform
+        {
             _itsOver = true;
+            _pause = true;
+        }
     // debug();
     moveView_and_ui();
     _ui.getInformation(_scene[0]);    

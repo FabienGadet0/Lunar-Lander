@@ -18,14 +18,12 @@ public:
     void draw(sf::RenderWindow &);
     void getInformation(Entity *);
     void move(const float &, const float &);
-    void youLoose(sf::RenderWindow &, sf::View &);
-    void youWin(sf::RenderWindow &, sf::View &);
+    void drawInformation(sf::RenderWindow &, sf::View &, const int &);
 
 protected:
     sf::Font _font;
     sf::Text _text;
-    sf::Text _loose;
-    sf::Text _win;
+    sf::Text _information;
 };
 
 

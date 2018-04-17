@@ -1,6 +1,6 @@
 #include "entity.h"
 
-Entity::Entity() :  _fuel(100) , _speed(0)
+Entity::Entity() :  _fuel(50) , _speed(0)
 {
 }
 

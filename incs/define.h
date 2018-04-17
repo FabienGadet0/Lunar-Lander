@@ -6,9 +6,9 @@
 #define WINY 1000
 #define WINDOWNAME "Lunar Lander"
 
-#define SHIPSPEED 0.05
+#define SHIPSPEED 0.03
 #define TURNRATE 0.04
-#define GRAVITY 1.5
+#define GRAVITY 2
 #define PLATFORMSIZE sf::Vector2f(70, 30)
 #define NBOFPLATFORMS 1000
 

@@ -6,6 +6,7 @@
 #include "define.h"
 #include "ui.h"
 #include "ground.h"
+#include "background.h"
 #include "platform.h"
 #include <string>
 
@@ -38,9 +39,10 @@ protected:
     std::vector<Ground> _ground;
     std::vector<sf::RectangleShape> _scene_debug;
     Ui _ui;
+    bool _pause;
     bool _itsOver;
     bool _winn;
+    // Background _bg;
 };
-
 
 #endif 

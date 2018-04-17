@@ -7,15 +7,11 @@ Ui::Ui()
     _text.setFont(_font);
     _text.setCharacterSize(UISIZE);
     _text.setColor(UICOLOR);
-    _loose.setFont(_font);
-    _loose.setCharacterSize(80);
-    _loose.setColor(sf::Color::Red);    
+    _information.setFont(_font);
+    _information.setCharacterSize(30);
+    _information.setColor(sf::Color::Red);    
     setText("NOT SET");
-    _loose.setString("YOU LOOSE");
-    _win.setFont(_font);
-    _win.setCharacterSize(80);
-    _win.setColor(sf::Color::Green);    
-    _win.setString("YOU WON");
+    _information.setString("YOU LOOSE");
     setPosition(0,0);
 }
 
@@ -46,16 +42,25 @@ void Ui::move(const float &x, const float &y)
     _text.move(x, y);
 }
 
-void Ui::youLoose(sf::RenderWindow &w, sf::View &v)
+void Ui::drawInformation(sf::RenderWindow &w, sf::View &v, const int &id)
 {
-    _loose.setPosition(sf::Vector2f(v.getCenter().x - ((UISIZE * _text.getString().getSize() / 3)) , v.getCenter().y - 200));
-    w.draw(_loose);
-}
-
-void Ui::youWin(sf::RenderWindow &w, sf::View &v)
-{
-    _win.setPosition(sf::Vector2f(v.getCenter().x - ((UISIZE * _text.getString().getSize() / 3)) , v.getCenter().y - 200));
-    w.draw(_win);
+    _information.setPosition(sf::Vector2f(v.getCenter().x - ((UISIZE * _text.getString().getSize() / 3)) , v.getCenter().y - 200));
+    if (id == 2)
+    {
+        _information.setColor(sf::Color::Red);
+        _information.setString("Collision, you failed");
+    }    
+    else if (id == 1)
+    {
+        _information.setColor(sf::Color::Green);
+        _information.setString("You reached a platform , congratulation !");
+    }    
+    else if (id == 3)
+    {
+        _information.setColor(sf::Color::Red);
+        _information.setString("Pause");
+    }    
+    w.draw(_information);
 }
 
 Ui::~Ui()

@@ -9,6 +9,8 @@ It runs only on Linux.
 
 # Informations about the game
 
+The goal is to land on a platform (white Rectangle)
+
 USE ARROWS FOR MOVING.
 
 There is an itertia and Gravity , the spacecraft will not stop all of a sudden when you press the down arrow.
@@ -17,9 +19,9 @@ Everything in the background is random .
 
 A lot of informations can be change in the file "incs/define.h" like the speed of the ship, gravity , nb of platforms etc...
 
-Acceleration is faster that braking.
+Acceleration is faster than braking.
 
-When there is no fuel available anymore the spacecraft can't accelerate of brake , only itertia and
+When there is no fuel anymore the spacecraft can't accelerate of brake , only itertia and
 gravity are applied to it , so you must find a platform before that case .
 
 you can find a UML of the project in "file/uml"

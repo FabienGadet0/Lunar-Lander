@@ -19,8 +19,12 @@ public:
 	sf::Rect<float>	getRekt() const;
 	sf::Vector2f	getPos() const;
 	sf::Vector2f	getSize() const;
+	int             getId() {return _id;}
 	virtual void	updatePos() {}
 	int				checkC(const Collider &);
+	void            setPos(const float &top)
+	{_c.top = top;}
+
 protected:
 	int				_id;
 	sf::Rect<float>	_c;

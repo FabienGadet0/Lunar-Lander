@@ -1,6 +1,6 @@
 #include "game.h"
 
-Game::Game(sf::RenderWindow &win) : _win(win), _itsOver(false)
+Game::Game(sf::RenderWindow &win) : _win(win), _itsOver(false), _winn(false)
 {
     _mainView.setSize(sf::Vector2f(WINX, WINY));
     _mainView.setCenter(sf::Vector2f(WINX / 2, WINY / 2));
@@ -25,14 +25,14 @@ void Game::createGround_and_platforms()
     {
 
         g.line[0] = g.line[1];
-        g.line[1] = sf::Vertex(sf::Vector2f(50 * i,
-         WINY - (rand() % 500)));
+        g.line[1] = sf::Vertex(sf::Vector2f(20 * i,
+         WINY - (rand() % 400)));
         g._c.init(g.line.getBounds(), 1);
-
         _ground.push_back(g);
 
-        // if (nb_platform++ < NBOFPLATFORMS)
-        //     _scene.push_back(new P SET PLATFORM POSITION
+        if (g._c.getRekt().top < 700 && nb_platform++ % 64 == 0)
+            _scene.push_back(
+                new Platform(sf::Vector2f(g._c.getRekt().left ,g._c.getRekt().top - 10)));
 
         if (DEBUG)
         {
@@ -40,6 +40,7 @@ void Game::createGround_and_platforms()
             tmp.setOutlineThickness(1);
             tmp.setOutlineColor(sf::Color::Red);
             tmp.setFillColor(sf::Color::Black);
+            g._c.setPos(g.line.getBounds().top);
             tmp.setSize(g._c.getSize());
             tmp.setPosition(g._c.getRekt().left, g._c.getRekt().top);
             _scene_debug.push_back(tmp);
@@ -86,12 +87,10 @@ void Game::draw_and_display()
     for (auto it = _ground.begin() ; it != _ground.end(); ++it)
         _win.draw((*it).line);
 
-
-    if (_itsOver)
-    {
+    if (_winn)
+        _ui.youWin(_win, _mainView);
+    else if (_itsOver)
         _ui.youLoose(_win, _mainView);
-    }
-
     _win.setView(_mainView);
     _ui.draw(_win);
     _win.display();
@@ -106,10 +105,14 @@ void Game::moveView_and_ui()
 
 void Game::update()
 {
-    if (!_itsOver)
+    if (!_itsOver || !_winn)
     {
     for (auto it = _scene.begin() ; it != _scene.end(); ++it)
+    {
         (*it)->update();
+        if (_scene[0]->checkC(**it) == 1 && (*it)->getId() == PLATFORM)
+            _winn = true;
+    }                
     for (auto it2 = _ground.begin() ; it2 != _ground.end(); ++it2)
         if (_scene[0]->checkC((*it2)._c) == 1) // && different de platform
             _itsOver = true;

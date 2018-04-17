@@ -7,10 +7,10 @@
 #define WINDOWNAME "Lunar Lander"
 
 #define SHIPSPEED 0.05
-#define TURNRATE 0.09
+#define TURNRATE 0.04
 #define GRAVITY 1.5
-#define PLATFORMSIZE sf::Vector2f(50, 50)
-#define NBOFPLATFORMS 10
+#define PLATFORMSIZE sf::Vector2f(70, 30)
+#define NBOFPLATFORMS 1000
 
 #define UISIZE 15
 #define UICOLOR sf::Color::White

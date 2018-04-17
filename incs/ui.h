@@ -19,11 +19,13 @@ public:
     void getInformation(Entity *);
     void move(const float &, const float &);
     void youLoose(sf::RenderWindow &, sf::View &);
+    void youWin(sf::RenderWindow &, sf::View &);
 
 protected:
     sf::Font _font;
     sf::Text _text;
     sf::Text _loose;
+    sf::Text _win;
 };
 
 

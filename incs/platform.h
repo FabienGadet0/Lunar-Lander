@@ -11,11 +11,11 @@ class Platform : public Entity
 {
 public:
 
-    Platform(){}
+    Platform();
     Platform(const sf::Vector2f &);
     ~Platform();
     virtual void draw(sf::RenderWindow &);
-    virtual void update() {}
+    virtual void update();
     virtual void updatePos(){}
     virtual void debug(){}
     

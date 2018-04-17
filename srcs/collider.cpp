@@ -12,6 +12,7 @@ Collider::~Collider()
 void Collider::init(const sf::Rect<float> &c, const int &id)
 {
 	_c = c;
+	_c.width /= 2;
 	_id = id;
 	_f = sf::Vector2f(0, 0);
 }

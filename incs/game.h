@@ -39,6 +39,7 @@ protected:
     std::vector<sf::RectangleShape> _scene_debug;
     Ui _ui;
     bool _itsOver;
+    bool _winn;
 };
 
 

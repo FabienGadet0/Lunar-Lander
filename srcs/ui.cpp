@@ -12,6 +12,10 @@ Ui::Ui()
     _loose.setColor(sf::Color::Red);    
     setText("NOT SET");
     _loose.setString("YOU LOOSE");
+    _win.setFont(_font);
+    _win.setCharacterSize(80);
+    _win.setColor(sf::Color::Green);    
+    _win.setString("YOU WON");
     setPosition(0,0);
 }
 
@@ -44,8 +48,14 @@ void Ui::move(const float &x, const float &y)
 
 void Ui::youLoose(sf::RenderWindow &w, sf::View &v)
 {
-    _loose.setPosition(sf::Vector2f(v.getCenter().x , v.getCenter().y - 200));
+    _loose.setPosition(sf::Vector2f(v.getCenter().x - ((UISIZE * _text.getString().getSize() / 3)) , v.getCenter().y - 200));
     w.draw(_loose);
+}
+
+void Ui::youWin(sf::RenderWindow &w, sf::View &v)
+{
+    _win.setPosition(sf::Vector2f(v.getCenter().x - ((UISIZE * _text.getString().getSize() / 3)) , v.getCenter().y - 200));
+    w.draw(_win);
 }
 
 Ui::~Ui()
